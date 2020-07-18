@@ -2,15 +2,16 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class DataLoader {
 
     public static List<String> loadFile(String path) {
         List<String> loadedRows = new ArrayList<>();
-        FileReader fileReader = null;
+        FileReader fileReader;
         try {
             fileReader = new FileReader(path);
             BufferedReader bufferedReader = new BufferedReader(fileReader);
@@ -26,6 +27,15 @@ public class DataLoader {
             System.out.println("Error accessing file: " + path);
         }
         return loadedRows;
+    }
+
+    public List<String> loadDataSecond(String path) {
+        try {
+            return Files.readAllLines(Path.of(path));
+        } catch (IOException e) {
+            e.printStackTrace();
+            return new ArrayList<>();
+        }
     }
 
 }
